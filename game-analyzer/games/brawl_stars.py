@@ -31,6 +31,87 @@ class BrawlStarsGame(BaseGame):
             "accuracy": 0.0,  # Точность атак (%)
         }
     
+    def create_session(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Создаёт сессию из данных пользователя"""
+        session = self.get_default_stats()
+        session.update({
+            "trophies_earned": data.get("trophy_change", 0),
+            "brawler_name": data.get("brawler", ""),
+            "game_mode": data.get("mode", ""),
+            "kills": data.get("kills", 0),
+            "deaths": data.get("deaths", 0),
+            "damage_dealt": data.get("damage", 0),
+            "healing_done": data.get("healing", 0),
+            "super_used": 1 if data.get("super_used", False) else 0,
+            "is_victory": data.get("rank", 0) <= 2,
+            "placement": data.get("rank", 0),
+        })
+        return session
+    
+    def analyze_performance(self, sessions: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Анализирует несколько сессий и возвращает общую статистику"""
+        if not sessions:
+            return {
+                "overall_score": 0,
+                "strengths": [],
+                "weaknesses": [],
+                "recommendations": []
+            }
+        
+        all_strengths = []
+        all_weaknesses = []
+        all_recommendations = []
+        
+        total_kills = 0
+        total_deaths = 0
+        total_trophies = 0
+        total_damage = 0
+        
+        for session in sessions:
+            analysis = self.analyze_specific_metrics(session)
+            all_strengths.extend(analysis["strengths"])
+            all_weaknesses.extend(analysis["weaknesses"])
+            all_recommendations.extend(analysis["recommendations"])
+            
+            total_kills += session.get("kills", 0)
+            total_deaths += session.get("deaths", 0)
+            total_trophies += session.get("trophies_earned", 0)
+            total_damage += session.get("damage_dealt", 0)
+        
+        # Общая статистика
+        avg_kd = total_kills / max(total_deaths, 1)
+        avg_trophies = total_trophies / len(sessions)
+        
+        # Расчет общего рейтинга
+        score = 50
+        if avg_kd > 2:
+            score += 20
+        elif avg_kd > 1:
+            score += 10
+        elif avg_kd < 0.5:
+            score -= 15
+        
+        if avg_trophies > 5:
+            score += 15
+        elif avg_trophies > 0:
+            score += 5
+        elif avg_trophies < -5:
+            score -= 15
+        
+        if total_damage / len(sessions) > 3000:
+            score += 15
+        elif total_damage / len(sessions) > 1500:
+            score += 5
+        
+        score = max(0, min(100, score))
+        
+        return {
+            "overall_score": score,
+            "strengths": list(set(all_strengths))[:5],
+            "weaknesses": list(set(all_weaknesses))[:5],
+            "recommendations": list(set(all_recommendations))[:5]
+        }
+    
     def analyze_specific_metrics(self, stats: Dict[str, Any]) -> Dict[str, Any]:
         """
         Анализирует специфичные метрики Brawl Stars
