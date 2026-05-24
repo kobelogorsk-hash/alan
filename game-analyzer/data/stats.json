@@ -1,0 +1,89 @@
+{
+  "games": {
+    "CS:GO": {
+      "game_name": "CS:GO",
+      "total_sessions": 3,
+      "total_playtime": 0.0,
+      "avg_stats": {
+        "assists": 5.333333333333333,
+        "headshots": 9.666666666666666,
+        "deaths": 10.0,
+        "accuracy": 48.333333333333336,
+        "kills": 17.666666666666668
+      },
+      "trend": "stable",
+      "sessions": [
+        {
+          "game_name": "CS:GO",
+          "timestamp": "2026-05-24T12:12:51.738137",
+          "stats": {
+            "kills": 15,
+            "deaths": 10,
+            "assists": 5,
+            "accuracy": 45,
+            "headshots": 8
+          }
+        },
+        {
+          "game_name": "CS:GO",
+          "timestamp": "2026-05-24T12:12:51.738434",
+          "stats": {
+            "kills": 20,
+            "deaths": 8,
+            "assists": 7,
+            "accuracy": 52,
+            "headshots": 12
+          }
+        },
+        {
+          "game_name": "CS:GO",
+          "timestamp": "2026-05-24T12:12:51.738675",
+          "stats": {
+            "kills": 18,
+            "deaths": 12,
+            "assists": 4,
+            "accuracy": 48,
+            "headshots": 9
+          }
+        }
+      ]
+    },
+    "Dota 2": {
+      "game_name": "Dota 2",
+      "total_sessions": 2,
+      "total_playtime": 0.0,
+      "avg_stats": {
+        "last_hits": 265.0,
+        "assists": 20.0,
+        "deaths": 6.0,
+        "kills": 10.0,
+        "gpm": 675.0
+      },
+      "trend": "stable",
+      "sessions": [
+        {
+          "game_name": "Dota 2",
+          "timestamp": "2026-05-24T12:12:51.739352",
+          "stats": {
+            "kills": 12,
+            "deaths": 5,
+            "assists": 18,
+            "last_hits": 250,
+            "gpm": 650
+          }
+        },
+        {
+          "game_name": "Dota 2",
+          "timestamp": "2026-05-24T12:12:51.739957",
+          "stats": {
+            "kills": 8,
+            "deaths": 7,
+            "assists": 22,
+            "last_hits": 280,
+            "gpm": 700
+          }
+        }
+      ]
+    }
+  }
+}
