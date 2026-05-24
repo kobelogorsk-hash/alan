@@ -1,0 +1,3 @@
+# Game Progress Analyzer - Dependencies
+# No external dependencies required for basic functionality
+# All used modules are part of Python standard library
