@@ -58,7 +58,7 @@ class GameStats:
         
         # Вычисляем средние значения
         for key in all_keys:
-            values = [s.stats.get(key, 0) for s in self.sessions if key in s.stats]
+            values = [s.stats.get(key, 0) for s in self.sessions if key in s.stats and isinstance(s.stats.get(key), (int, float))]
             if values:
                 self.avg_stats[key] = sum(values) / len(values)
         

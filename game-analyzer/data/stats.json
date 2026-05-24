@@ -84,6 +84,46 @@
           }
         }
       ]
+    },
+    "Brawl Stars": {
+      "game_name": "Brawl Stars",
+      "total_sessions": 1,
+      "total_playtime": 0.0,
+      "avg_stats": {
+        "deaths": 1.0,
+        "damage_dealt": 3500.0,
+        "accuracy": 65.0,
+        "super_used": 3.0,
+        "gems_collected": 8.0,
+        "is_victory": 1.0,
+        "playtime_minutes": 3.0,
+        "kills": 4.0,
+        "trophies_earned": 15.0,
+        "damage_received": 2800.0,
+        "healing_done": 1200.0
+      },
+      "trend": "stable",
+      "sessions": [
+        {
+          "game_name": "Brawl Stars",
+          "timestamp": "2026-05-24T12:21:19.840736",
+          "stats": {
+            "brawler_name": "Poco",
+            "game_mode": "Gem Grab",
+            "is_victory": true,
+            "trophies_earned": 15,
+            "kills": 4,
+            "deaths": 1,
+            "damage_dealt": 3500,
+            "damage_received": 2800,
+            "healing_done": 1200,
+            "super_used": 3,
+            "accuracy": 65.0,
+            "playtime_minutes": 3,
+            "gems_collected": 8
+          }
+        }
+      ]
     }
   }
 }
