@@ -40,8 +40,94 @@ def add_session_menu(analyzer: GameAnalyzer):
         print("❌ Название игры не может быть пустым")
         return
     
-    print("\nВведите статистику (оставьте пустым, если не применимо):")
+    # Проверка на Brawl Stars
+    is_brawl_stars = game_name.lower() in ["brawl stars", "brawlstars", "bs"]
     
+    if is_brawl_stars:
+        print("\n📊 Введите статистику для Brawl Stars:")
+        stats = _input_brawl_stars_stats()
+    else:
+        print("\nВведите статистику (оставьте пустым, если не применимо):")
+        stats = _input_generic_stats()
+    
+    analyzer.add_game_session(game_name, **stats)
+
+
+def _input_brawl_stars_stats() -> dict:
+    """Ввод статистики для Brawl Stars"""
+    stats = {}
+    
+    print("\n--- Основная информация ---")
+    brawler = input("Боец (Brawler): ").strip()
+    if brawler:
+        stats["brawler_name"] = brawler
+    
+    game_mode = input("Режим игры (Gem Grab/Brawl Ball/Showdown и т.д.): ").strip()
+    if game_mode:
+        stats["game_mode"] = game_mode
+    
+    victory = input("Победа? (y/n): ").strip().lower()
+    stats["is_victory"] = victory == 'y' or victory == 'yes'
+    
+    trophies = input("Трофеи получено (+/-): ").strip()
+    if trophies:
+        stats["trophies_earned"] = int(trophies)
+    
+    print("\n--- Боевые метрики ---")
+    kills = input("Нокауты (Kills): ").strip()
+    if kills:
+        stats["kills"] = int(kills)
+    
+    deaths = input("Смерти (Deaths): ").strip()
+    if deaths:
+        stats["deaths"] = int(deaths)
+    
+    damage = input("Нанесённый урон: ").strip()
+    if damage:
+        stats["damage_dealt"] = int(damage)
+    
+    damage_recv = input("Полученный урон: ").strip()
+    if damage_recv:
+        stats["damage_received"] = int(damage_recv)
+    
+    healing = input("Лечение (если есть): ").strip()
+    if healing:
+        stats["healing_done"] = int(healing)
+    
+    print("\n--- Специфичные метрики ---")
+    super_used = input("Использований супер-атаки: ").strip()
+    if super_used:
+        stats["super_used"] = int(super_used)
+    
+    accuracy = input("Точность атак (%): ").strip()
+    if accuracy:
+        stats["accuracy"] = float(accuracy)
+    
+    playtime = input("Длительность матча (минут): ").strip()
+    if playtime:
+        stats["playtime_minutes"] = int(float(playtime))
+    
+    # Режим-специфичные поля
+    if game_mode and "brawl ball" in game_mode.lower():
+        goals = input("Забитые голы: ").strip()
+        if goals:
+            stats["goals_scored"] = int(goals)
+    
+    if game_mode and "gem grab" in game_mode.lower():
+        gems = input("Собрано кристаллов: ").strip()
+        if gems:
+            stats["gems_collected"] = int(gems)
+    
+    if game_mode and "showdown" in game_mode.lower():
+        placement = input("Занятое место: ").strip()
+        if placement:
+            stats["placement"] = int(placement)
+    
+    return stats
+
+
+def _input_generic_stats() -> dict:
+    """Ввод универсальной статистики"""
     stats = {}
     
     # Универсальные поля для шутеров
@@ -94,7 +180,7 @@ def add_session_menu(analyzer: GameAnalyzer):
     if damage:
         stats["damage_dealt"] = int(damage)
     
-    analyzer.add_game_session(game_name, **stats)
+    return stats
 
 
 def analyze_menu(analyzer: GameAnalyzer):

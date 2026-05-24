@@ -81,7 +81,7 @@ class FPSGame(BaseGame):
         }
 
 
-class MO BAGame(BaseGame):
+class MOBAGame(BaseGame):
     """Реализация для MOBA игр (Dota 2, LoL)"""
     
     def __init__(self):
@@ -176,10 +176,14 @@ class BattleRoyaleGame(BaseGame):
 
 def get_game_handler(game_type: str) -> BaseGame:
     """Фабричная функция для получения обработника игры"""
+    # Импортируем внутри функции чтобы избежать циклического импорта
+    from games.brawl_stars import BrawlStarsGame
+    
     handlers = {
         "fps": FPSGame,
-        "moba": MO BAGame,
-        "battle_royale": BattleRoyaleGame
+        "moba": MOBAGame,
+        "battle_royale": BattleRoyaleGame,
+        "brawl_stars": BrawlStarsGame
     }
     
     handler_class = handlers.get(game_type.lower(), BaseGame)
