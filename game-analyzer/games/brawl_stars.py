@@ -3,6 +3,7 @@
 """
 from typing import Dict, List, Any
 from games.base_game import BaseGame
+from games.brawler_recommendations import BrawlerRecommendations, get_mode_recommendation_text
 
 
 class BrawlStarsGame(BaseGame):
@@ -212,6 +213,16 @@ class BrawlStarsGame(BaseGame):
                 strengths.append("Трофеи сохранены несмотря на поражение")
             else:
                 recommendations.append("Проанализируйте ошибку и попробуйте другого бойца")
+        
+        # Рекомендации по бойцам для текущего режима
+        game_mode = stats.get("game_mode", "")
+        if game_mode:
+            mode_recommendations = get_mode_recommendation_text(game_mode)
+            # Добавляем только первую рекомендацию из списка
+            top_brawlers = BrawlerRecommendations.get_recommendations_for_mode(game_mode, top_n=3)
+            if top_brawlers:
+                brawler_names = ", ".join([b["name"] for b in top_brawlers])
+                recommendations.append(f"Топ бойцы для {game_mode}: {brawler_names}")
         
         return {
             "strengths": strengths,
