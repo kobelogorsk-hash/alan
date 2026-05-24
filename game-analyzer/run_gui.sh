@@ -1,0 +1,21 @@
+#!/bin/bash
+# Скрипт для запуска GUI
+
+echo "=== Brawl Stars Progress Analyzer ==="
+echo ""
+echo "Для запуска GUI выполните:"
+echo "  python gui.py"
+echo ""
+echo "Требования:"
+echo "  - Установленный Python 3.8+"
+echo "  - customtkinter: pip install customtkinter"
+echo "  - matplotlib: pip install matplotlib"
+echo "  - tkinter: sudo apt-get install python3-tk (Linux)"
+echo ""
+echo "Если вы видите ошибку 'ImportError: libtk8.6.so':"
+echo "  Linux: sudo apt-get install python3-tk"
+echo "  Mac: brew install python-tk"
+echo "  Windows: переустановите Python с опцией tcl/tk"
+echo ""
+echo "Альтернативно используйте консольную версию:"
+echo "  python main.py"
